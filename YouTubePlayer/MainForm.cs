@@ -12,13 +12,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YouTubePlayer.Command;
 using YouTubePlayer.Util;
 
 namespace YouTubePlayer
 {
     public partial class MainForm : Form
     {
-        private ChromiumWebBrowser _ChromeBrowser;
+        public ChromiumWebBrowser ChromeBrowser { get; private set; }
         private KeyHandler _KeyHandler;
 
         public MainForm()
@@ -26,6 +27,8 @@ namespace YouTubePlayer
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             _KeyHandler = new KeyHandler(this.Handle);
+
+            CommandFactory.RegisterAllCommands(_KeyHandler);
 
             foreach (var key in YouTubeShortcut.AllKeys)
             {
@@ -40,8 +43,8 @@ namespace YouTubePlayer
             settings.PersistSessionCookies = true;
             Cef.Initialize(settings);
 
-            _ChromeBrowser = new ChromiumWebBrowser(ConfigurationManager.AppSettings["defaultUrl"] ?? "https://www.youtube.com/");
-            _ChromeBrowser.TitleChanged += ((s2, e2) =>
+            ChromeBrowser = new ChromiumWebBrowser(ConfigurationManager.AppSettings["defaultUrl"] ?? "https://www.youtube.com/");
+            ChromeBrowser.TitleChanged += ((s2, e2) =>
             {
                 var title = e2.Title;
                 if (title.Length > 63)
@@ -53,30 +56,28 @@ namespace YouTubePlayer
                 notifyIcon1.Text = title;
             });
 
-            panel1.Controls.Add(_ChromeBrowser);
-            _ChromeBrowser.Dock = DockStyle.Fill;
+            panel1.Controls.Add(ChromeBrowser);
+            ChromeBrowser.Dock = DockStyle.Fill;
         }
 
         private void HandleHotkey(int key)
         {
             try
             {
-                if (YouTubeShortcut.AllKeys.ContainsKey(key))
+                
+                if (backgroundWorker1.IsBusy == false)
                 {
-                    if (backgroundWorker1.IsBusy == false)
-                    {
-                        TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.Paused);
-                        backgroundWorker1.RunWorkerAsync();
-                    }
+                    TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.Paused);
+                    backgroundWorker1.RunWorkerAsync();
+                }
 
-                    var command = YouTubeShortcut.AllKeys[key];
-                    _ChromeBrowser.GetBrowser().GetHost().SendKeyEvent(command.Item3);
-                    if (ConfigurationManager.AppSettings["showNotifications"] == "true")
+                var text = CommandFactory.RunKey(this, key);
+
+                if (ConfigurationManager.AppSettings["showNotifications"] == "true")
+                {
+                    if (String.IsNullOrEmpty(text) == false)
                     {
-                        if (String.IsNullOrEmpty(command.Item4) == false)
-                        {
-                            notifyIcon1.ShowBalloonTip(3, "", command.Item4, ToolTipIcon.Info);
-                        }
+                        notifyIcon1.ShowBalloonTip(3, "", text, ToolTipIcon.Info);
                     }
                 }
             }

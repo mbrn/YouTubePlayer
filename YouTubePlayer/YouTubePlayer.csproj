@@ -73,6 +73,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\ActionCommand.cs" />
+    <Compile Include="Command\CommandFactory.cs" />
+    <Compile Include="Command\FocusedKeyEventCommand.cs" />
+    <Compile Include="Command\ICommand.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +85,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Command\KeyEventCommand.cs" />
     <Compile Include="Util\KeyHandler.cs" />
     <Compile Include="Util\TaskbarProgress.cs" />
     <Compile Include="Util\YouTubeShortcut.cs" />
