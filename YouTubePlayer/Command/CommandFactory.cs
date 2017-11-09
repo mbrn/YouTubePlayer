@@ -24,10 +24,10 @@ namespace YouTubePlayer.Command
             KeyEventCommand.New(Keys.J, YouTubeShortcut.Back10, "").AddToCommands(keyHandler);
             KeyEventCommand.New(Keys.M, YouTubeShortcut.Mute, "Mute/Unmute").AddToCommands(keyHandler);
 
-            FocusedKeyEventCommand.New(Keys.Up, YouTubeShortcut.Up).AddToCommands(keyHandler);
-            FocusedKeyEventCommand.New(Keys.Down, YouTubeShortcut.Down).AddToCommands(keyHandler);
-            FocusedKeyEventCommand.New(Keys.Left, YouTubeShortcut.Left).AddToCommands(keyHandler);
-            FocusedKeyEventCommand.New(Keys.Right, YouTubeShortcut.Right).AddToCommands(keyHandler);
+            FocusedKeyEventCommand.New(Keys.Up, Modifier.Alt, YouTubeShortcut.Up).AddToCommands(keyHandler);
+            FocusedKeyEventCommand.New(Keys.Down, Modifier.Alt, YouTubeShortcut.Down).AddToCommands(keyHandler);
+            FocusedKeyEventCommand.New(Keys.Left, Modifier.Alt, YouTubeShortcut.Left).AddToCommands(keyHandler);
+            FocusedKeyEventCommand.New(Keys.Right, Modifier.Alt, YouTubeShortcut.Right).AddToCommands(keyHandler);
 
             ActionCommand.New(Keys.Q, (MainForm form) =>
             {
