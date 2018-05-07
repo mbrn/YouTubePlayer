@@ -17,8 +17,11 @@ namespace YouTubePlayer.Command
 
         public static void RegisterAllCommands(KeyHandler keyHandler)
         {
+            KeyEventCommand.New(Keys.BrowserForward, Modifier.None, YouTubeShortcut.Next, "Next").AddToCommands(keyHandler);
             KeyEventCommand.New(Keys.N, YouTubeShortcut.Next, "Next").AddToCommands(keyHandler);
+            KeyEventCommand.New(Keys.BrowserBack, Modifier.None, YouTubeShortcut.Prev, "Prev").AddToCommands(keyHandler);
             KeyEventCommand.New(Keys.P, YouTubeShortcut.Prev, "Prev").AddToCommands(keyHandler);
+            KeyEventCommand.New(Keys.MediaPlayPause, Modifier.None, YouTubeShortcut.Pause, "Play / Pause").AddToCommands(keyHandler);
             KeyEventCommand.New(Keys.K, YouTubeShortcut.Pause, "Play / Pause").AddToCommands(keyHandler);
             KeyEventCommand.New(Keys.L, YouTubeShortcut.Forw10, "").AddToCommands(keyHandler);
             KeyEventCommand.New(Keys.J, YouTubeShortcut.Back10, "").AddToCommands(keyHandler);

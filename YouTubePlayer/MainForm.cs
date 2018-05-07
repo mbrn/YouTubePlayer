@@ -39,9 +39,11 @@ namespace YouTubePlayer
         private void MainForm_Load(object sender, EventArgs e)
         {
             CefSettings settings = new CefSettings();
+            //settings.BrowserSubprocessPath = @"x86\CefSharp.BrowserSubprocess.exe";
             settings.CachePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\CEF";
             settings.PersistSessionCookies = true;
             Cef.Initialize(settings);
+            //Cef.Initialize(settings, performDependencyCheck: false, browserProcessHandler: null);
 
             ChromeBrowser = new ChromiumWebBrowser(ConfigurationManager.AppSettings["defaultUrl"] ?? "https://www.youtube.com/");
             ChromeBrowser.TitleChanged += ((s2, e2) =>
@@ -54,6 +56,10 @@ namespace YouTubePlayer
 
                 this.Text = title;
                 notifyIcon1.Text = title;
+            });
+            ChromeBrowser.LoadError += ((s3, e3) => 
+            {
+                var x = e3.ErrorText;
             });
 
             panel1.Controls.Add(ChromeBrowser);

@@ -31,7 +31,7 @@ namespace YouTubePlayer.Command
         {
             return new KeyEventCommand()
             {
-                Id = (int)key * (int)modifier,
+                Id = (int)key * ((int)modifier + 1),
                 Key = key,
                 Modifier = modifier,
                 YouTubeKeyEvent = youTubeKeyEvent,
@@ -47,6 +47,7 @@ namespace YouTubePlayer.Command
 
     public enum Modifier
     {
+        None = 0x0000,
         Alt = 0x0001,
         Control = 0x0002,
         Shift = 0x0004,
