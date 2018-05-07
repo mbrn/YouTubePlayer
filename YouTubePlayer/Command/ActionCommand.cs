@@ -26,7 +26,7 @@ namespace YouTubePlayer.Command
         {
             return new ActionCommand()
             {
-                Id = (int)key * (int)modifier,
+                Id = (int)key * ((int)modifier + 1),
                 Key = key,
                 Modifier = modifier,
                 Action = action,

@@ -25,7 +25,7 @@ namespace YouTubePlayer.Command
         {
             return new FocusedKeyEventCommand()
             {
-                Id = (int)key * (int)modifier,
+                Id = (int)key * ((int)modifier + 1),
                 Key = key,
                 Modifier = modifier,
                 YouTubeKeyEvent = youTubeKeyEvent,

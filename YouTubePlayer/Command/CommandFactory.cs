@@ -29,7 +29,9 @@ namespace YouTubePlayer.Command
 
             FocusedKeyEventCommand.New(Keys.Up, Modifier.Alt, YouTubeShortcut.Up).AddToCommands(keyHandler);
             FocusedKeyEventCommand.New(Keys.Down, Modifier.Alt, YouTubeShortcut.Down).AddToCommands(keyHandler);
+            FocusedKeyEventCommand.New(Keys.BrowserSearch, Modifier.None, YouTubeShortcut.Left).AddToCommands(keyHandler);
             FocusedKeyEventCommand.New(Keys.Left, Modifier.Alt, YouTubeShortcut.Left).AddToCommands(keyHandler);
+            FocusedKeyEventCommand.New(Keys.LaunchMail, Modifier.None, YouTubeShortcut.Right).AddToCommands(keyHandler);
             FocusedKeyEventCommand.New(Keys.Right, Modifier.Alt, YouTubeShortcut.Right).AddToCommands(keyHandler);
 
             ActionCommand.New(Keys.Q, (MainForm form) =>
@@ -37,7 +39,7 @@ namespace YouTubePlayer.Command
                 Process.GetCurrentProcess().Kill();
             }).AddToCommands(keyHandler);
 
-            ActionCommand.New(Keys.S, (MainForm form) =>
+            var skipAdAction = new Action<MainForm>((form) =>
             {
                 var script = @"(function() {
                     document.getElementsByClassName('videoAdUiSkipButton')[0].click();
@@ -47,7 +49,9 @@ namespace YouTubePlayer.Command
                 {
                     var response = x.Result;
                 });
-            }).AddToCommands(keyHandler);
+            });
+            ActionCommand.New(Keys.BrowserHome, Modifier.None, skipAdAction).AddToCommands(keyHandler);
+            ActionCommand.New(Keys.S, skipAdAction).AddToCommands(keyHandler);
 
             ActionCommand.New(Keys.D, (MainForm form) =>
             {
