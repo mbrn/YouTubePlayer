@@ -14,7 +14,7 @@ namespace YouTubePlayer.Util
 
         public static KeyEvent Next = GenerateKey(KeyEventType.KeyDown, Keys.N, CefEventFlags.ShiftDown);
         public static KeyEvent Prev = GenerateKey(KeyEventType.KeyDown, Keys.P, CefEventFlags.ShiftDown);
-        public static KeyEvent Pause = GenerateKey(KeyEventType.KeyDown, Keys.K, CefEventFlags.None);
+        public static KeyEvent Pause = GenerateKey(KeyEventType.KeyDown, Keys.Space, CefEventFlags.None);
         public static KeyEvent Forw10 = GenerateKey(KeyEventType.KeyDown, Keys.L, CefEventFlags.None);
         public static KeyEvent Back10 = GenerateKey(KeyEventType.KeyDown, Keys.J, CefEventFlags.None);
         public static KeyEvent Mute = GenerateKey(KeyEventType.KeyDown, Keys.M, CefEventFlags.None);
